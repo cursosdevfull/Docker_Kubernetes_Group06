@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  web1:
+    image: nginx:alpine
+    container_name: web1
+    ports:
+      - 9200:80
+    environment:
+      - user=shidalgo
+      - password=thecube
+
+  web2:
+    image: httpd
+    container_name: web2
+    ports:
+      - 9300:80
+    env_file:
+      - env
+
+  web3:
+    image: httpd
+    container_name: web3
+    ports:
+      - 9400:80
+    env_file:
+      - env

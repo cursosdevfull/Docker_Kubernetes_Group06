@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  test:
+    build:
+      context: ./code
+      dockerfile: build-image
+    image: restart-image
+    container_name: test
+    restart: unless-stopped

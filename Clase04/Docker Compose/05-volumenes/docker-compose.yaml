@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  web1:
+    image: nginx:alpine
+    container_name: web1
+    ports:
+      - 9200:80
+    volumes:
+      - ./html:/usr/share/nginx/html
+
+  web2:
+    image: httpd
+    container_name: web2
+    ports:
+      - 9300:80
+    volumes:
+      - /var/www/html
+
+  web3:
+    image: nginx:alpine
+    container_name: web3
+    ports:
+      - 9400:80
+    volumes:
+      - vol-nginx:/usr/share/nginx/html
+
+volumes:
+  vol-nginx:

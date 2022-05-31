@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  web1:
+    image: nginx:alpine
+    container_name: web1
+    ports:
+      - 9200:80
+    depends_on:
+      - web2
+
+  web2:
+    image: nginx:alpine
+    container_name: web2
+    ports:
+      - 9300:80

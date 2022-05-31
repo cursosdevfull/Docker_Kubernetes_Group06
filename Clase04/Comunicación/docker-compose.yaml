@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    environment:
+      - PORT=3000
+      - SERVICE_BACKEND1=http://localhost:9010/api/message
+    ports:
+      - "9000:3000"
+    networks:
+      - net-front-back
+
+  backend1:
+    build:
+      context: ./backend1
+      dockerfile: Dockerfile
+    environment:
+      - PORT=3010
+      - SERVICE_BACKEND2=http://backend2:3020/api/message
+    ports:
+      - "9010:3010"
+    networks:
+      - net-front-back
+      - net-back-back
+
+  backend2:
+    build:
+      context: ./backend2
+      dockerfile: Dockerfile
+    environment:
+      - PORT=3020
+    networks:
+      - net-back-back
+
+networks:
+  net-front-back:
+  net-back-back:
