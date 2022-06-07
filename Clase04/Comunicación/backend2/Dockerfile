@@ -1,11 +1,13 @@
 FROM node:14-alpine
 
+ARG DIR=backend2
+
 WORKDIR /app
 
-COPY package.json .
+COPY ${DIR}/package.json .
 
 RUN npm install
 
-COPY . .
+COPY ${DIR}/. .
 
 CMD ["npm", "run", "start"]
