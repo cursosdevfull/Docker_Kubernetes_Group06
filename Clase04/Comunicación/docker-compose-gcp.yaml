@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  frontend:
+    container_name: frontend
+    image: gcr.io/cursodocker06/frontend
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    environment:
+      - PORT=3000
+      - SERVICE_BACKEND1=http://localhost:9010/api/message
+    ports:
+      - "9000:3000"
+    networks:
+      - net-front-back
+
+  backend1:
+    container_name: backend1
+    image: gcr.io/cursodocker06/backend1
+    build:
+      context: .
+      dockerfile: backend1/Dockerfile
+    environment:
+      - PORT=3010
+      - SERVICE_BACKEND2=http://backend2:3020/api/message
+    ports:
+      - "9010:3010"
+    networks:
+      - net-front-back
+      - net-back-back
+
+  backend2:
+    container_name: backend2
+    image: gcr.io/cursodocker06/backend2
+    build:
+      context: .
+      dockerfile: backend2/Dockerfile
+    environment:
+      - PORT=3020
+    networks:
+      - net-back-back
+
+networks:
+  net-front-back:
+  net-back-back:
